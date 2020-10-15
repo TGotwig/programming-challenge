@@ -11,13 +11,13 @@ public class Weather {
   private int maxTemp;
   /** The minimum temperature. */
   private int minTemp;
-  /** The minimum temperature. */
+  /** The temperature-spread. */
   private Integer tempSpread;
 
   /**
-   * @param dayArg
-   * @param maxTempArg - maximum temperature
-   * @param minTempArg - minimum temperature
+   * @param dayArg - Day as a number.
+   * @param maxTempArg - Maximum temperature
+   * @param minTempArg - Minimum temperature
    */
   public Weather(final String dayArg,
   final int maxTempArg, final int minTempArg) {
@@ -40,8 +40,8 @@ public class Weather {
   }
 
   /**
-   * @param weathers - A list containing multiple weather objects.
-   * @return The day with the lowest temperature-spread.
+   * @param weathers - List with multiple Weather objects.
+   * @return Day with the lowest temperature-spread.
    */
   public static String getDayWithLowestSpread(final List<Weather> weathers) {
     return Weather.getWeathersByTempSpread(weathers).get(0).getDay();
@@ -54,42 +54,42 @@ public class Weather {
       getDay(), getMaxTemp(), getMinTemp(), getTempSpread());
   }
 
-  /** @return The day. */
+  /** @return Day as a number. */
   public String getDay() {
     return this.day;
   }
 
-  /** @param dayArg */
+  /** @param dayArg - Day as a number. */
   public void setDay(final String dayArg) {
     this.day = dayArg;
   }
 
-  /** @return The maximum temperature. */
+  /** @return Maximum temperature. */
   public int getMaxTemp() {
     return this.maxTemp;
   }
 
-  /** @param maxTempArg */
+  /** @param maxTempArg - Maximum temperature. */
   public void setMaxTemp(final int maxTempArg) {
     this.maxTemp = maxTempArg;
   }
 
-  /** @return The minimum temperature. */
+  /** @return Minimum temperature. */
   public int getMinTemp() {
     return this.minTemp;
   }
 
-  /** @param minTempArg */
+  /** @param minTempArg - Minimum temperature. */
   public void setMinTemp(final int minTempArg) {
     this.minTemp = minTempArg;
   }
 
-  /** @return The difference between maxTemp and minTemp. */
+  /** @return Difference between maxTemp and minTemp. */
   public Integer getTempSpread() {
     return this.tempSpread;
   }
 
-  /** @param tempSpreadArg */
+  /** @param tempSpreadArg - Difference between maxTemp and minTemp. */
   public void setTempSpread(final int tempSpreadArg) {
     this.tempSpread = tempSpreadArg;
   }
