@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.exxcellent.challenge.entities.FootballGame;
 import de.exxcellent.challenge.entities.Weather;
 
 /**
@@ -51,7 +52,22 @@ class AppTest {
   /** Runs football. */
   @Test
   void runFootball() {
-    App.main("--football", "football.csv");
+
+    List<FootballGame> data = Arrays.asList(
+      new FootballGame("A", FIVE, 1),
+      new FootballGame("B", THREE, 1),
+      new FootballGame("C", 1, NINE)
+    );
+
+    List<FootballGame> tempSpreads = FootballGame.getWeathersByTempSpread(data);
+    assertEquals(
+      "[{ day='B', goals='3', goalsAllowed='1', goalsDistance='2' }, "
+      + "{ day='A', goals='5', goalsAllowed='1', goalsDistance='4' }, "
+      + "{ day='C', goals='1', goalsAllowed='9', goalsDistance='8' }]",
+      tempSpreads.toString(), "My expectations were not met");
+
+    String day = FootballGame.getDayWithLowestSpread(data);
+      assertEquals("B", day);
   }
 
 }

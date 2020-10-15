@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.exxcellent.challenge.Enums.InputType;
+import de.exxcellent.challenge.entities.FootballGame;
 import de.exxcellent.challenge.entities.Weather;
 
 final class Helpers {
@@ -32,7 +33,8 @@ final class Helpers {
         E entity = null;
 
         switch (inputType) {
-          case weather: entity = (E) createWeather(attributes);
+          case weather: entity = (E) createWeather(attributes); break;
+          case football: entity = (E) createFootballGame(attributes); break;
           default: entity = null;
         }
 
@@ -56,6 +58,17 @@ final class Helpers {
     int minTemp = Integer.parseInt(metadata[2]);
 
     return new Weather(day, maxTemp, minTemp);
+  }
+
+  private static FootballGame createFootballGame(final String[] metadata) {
+    final int five = 5;
+    final int six = 6;
+
+    String day = metadata[0];
+    int goals = Integer.parseInt(metadata[five]);
+    int goalsAllowed = Integer.parseInt(metadata[six]);
+
+    return new FootballGame(day, goals, goalsAllowed);
   }
 
 }

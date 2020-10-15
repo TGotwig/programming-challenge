@@ -3,6 +3,7 @@ package de.exxcellent.challenge;
 import java.util.List;
 
 import de.exxcellent.challenge.Enums.InputType;
+import de.exxcellent.challenge.entities.FootballGame;
 import de.exxcellent.challenge.entities.Weather;
 
 /**
@@ -32,6 +33,10 @@ public final class App {
       "src/main/resources/de/exxcellent/challenge/weather.csv",
       InputType.weather);
 
+    List<FootballGame> football = Helpers.<FootballGame>createModelFromCSV(
+      "src/main/resources/de/exxcellent/challenge/football.csv",
+      InputType.football);
+
     // Your day analysis function call …
     String dayWithSmallestTempSpread = Weather.getDayWithLowestSpread(weathers);
 
@@ -39,7 +44,8 @@ public final class App {
         dayWithSmallestTempSpread);
 
     // Your goal analysis function call …
-    String teamWithSmallestGoalSpread = "A good team";
+    String teamWithSmallestGoalSpread = FootballGame
+      .getDayWithLowestSpread(football);
 
     System.out.printf("Team with smallest goal spread       : %s%n",
         teamWithSmallestGoalSpread);
