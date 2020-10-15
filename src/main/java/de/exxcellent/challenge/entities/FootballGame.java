@@ -32,7 +32,7 @@ public class FootballGame {
    * @param footballGames - List with multiple FootballGame objects.
    * @return Sorted FootballGame objects in ascending order.
    */
-  public static List<FootballGame> getWeathersByTempSpread(
+  public static List<FootballGame> getFootballGameByGoalDistance(
     final List<FootballGame> footballGames) {
     return footballGames.stream()
       .sorted((p1, p2) ->
@@ -41,12 +41,13 @@ public class FootballGame {
   }
 
   /**
-   * @param weathers - List with multiple FootballGame objects.
-   * @return Day with the lowest amount of goals.
+   * @param footballGames - List with multiple FootballGame objects.
+   * @return Day with the smallest amount of goals.
    */
-  public static String getDayWithLowestSpread(
-    final List<FootballGame> weathers) {
-    return FootballGame.getWeathersByTempSpread(weathers).get(0).getDay();
+  public static String getFootballGameWithSmallestGoalDistance(
+    final List<FootballGame> footballGames) {
+    return FootballGame.getFootballGameByGoalDistance(footballGames)
+      .get(0).getDay();
   }
 
   @Override

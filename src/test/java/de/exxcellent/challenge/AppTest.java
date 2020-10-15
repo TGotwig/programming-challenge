@@ -47,7 +47,7 @@ class AppTest {
       + "{ day='C', maxTemp='9', minTemp='1', tempSpread='8' }]",
       tempSpreads.toString(), "My expectations were not met");
 
-    String day = Weather.getDayWithLowestSpread(data);
+    String day = Weather.getDayWithSmallestSpread(data);
     assertEquals("B", day);
   }
 
@@ -63,14 +63,15 @@ class AppTest {
       new FootballGame("C", 1, NINE)
     );
 
-    List<FootballGame> tempSpreads = FootballGame.getWeathersByTempSpread(data);
+    List<FootballGame> tempSpreads = FootballGame
+      .getFootballGameByGoalDistance(data);
     assertEquals(
       "[{ day='B', goals='3', goalsAllowed='1', goalsDistance='2' }, "
       + "{ day='A', goals='5', goalsAllowed='1', goalsDistance='4' }, "
       + "{ day='C', goals='1', goalsAllowed='9', goalsDistance='8' }]",
       tempSpreads.toString(), "My expectations were not met");
 
-    String day = FootballGame.getDayWithLowestSpread(data);
+    String day = FootballGame.getFootballGameWithSmallestGoalDistance(data);
       assertEquals("B", day);
   }
 

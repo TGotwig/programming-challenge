@@ -54,7 +54,7 @@ public final class App {
         inputWeather, InputType.weather);
 
       String dayWithSmallestTempSpread = Weather
-        .getDayWithLowestSpread(weathers);
+        .getDayWithSmallestSpread(weathers);
 
       System.out.printf("Day with smallest temperature spread : %s%n",
         dayWithSmallestTempSpread);
@@ -65,7 +65,7 @@ public final class App {
         inputFootball, InputType.football);
 
       String teamWithSmallestGoalSpread = FootballGame
-        .getDayWithLowestSpread(football);
+        .getFootballGameWithSmallestGoalDistance(football);
 
       System.out.printf("Team with smallest goal spread       : %s%n",
           teamWithSmallestGoalSpread);

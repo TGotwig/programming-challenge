@@ -41,9 +41,9 @@ public class Weather {
 
   /**
    * @param weathers - List with multiple Weather objects.
-   * @return Day with the lowest temperature-spread.
+   * @return Day with the smallest temperature-spread.
    */
-  public static String getDayWithLowestSpread(final List<Weather> weathers) {
+  public static String getDayWithSmallestSpread(final List<Weather> weathers) {
     return Weather.getWeathersByTempSpread(weathers).get(0).getDay();
   }
 
