@@ -31,6 +31,8 @@ class AppTest {
 
   @Test
   void testSpreadFromWeather() {
+    App.main("--weather",
+      "src/main/resources/de/exxcellent/challenge/weather.csv");
 
     List<Weather> data = Arrays.asList(
       new Weather("A", FIVE, 1),
@@ -52,6 +54,8 @@ class AppTest {
   /** Runs football. */
   @Test
   void runFootball() {
+    App.main("--football",
+      "src/main/resources/de/exxcellent/challenge/football.csv");
 
     List<FootballGame> data = Arrays.asList(
       new FootballGame("A", FIVE, 1),
