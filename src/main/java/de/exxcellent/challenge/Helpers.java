@@ -16,25 +16,25 @@ import de.exxcellent.challenge.entities.FootballGame;
 import de.exxcellent.challenge.entities.Weather;
 
 final class Helpers {
+  /** Initializes the csv-mapper for parsing input. */
+  private static CsvMapper csvMapper = new CsvMapper();
+  static {
+    csvMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+  }
 
   private Helpers() {
   }
 
   public static List<Weather> createWeathersFromCsv(final String path)
   throws IOException {
-    CsvMapper csvMapper = new CsvMapper();
-    csvMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-    CsvSchema schema = CsvSchema.emptySchema().withHeader();
-
-    ObjectReader oReader = csvMapper.reader(Weather.class).with(schema);
+    ObjectReader oReader = csvMapper.readerFor(Weather.class).with(
+      CsvSchema.emptySchema().withHeader());
     List<Weather> weathers = new ArrayList<>();
 
     try (Reader reader = new FileReader(path)) {
       MappingIterator<Weather> mi = oReader.readValues(reader);
       while (mi.hasNext()) {
-        Weather current = mi.next();
-        current.init();
-        weathers.add(current);
+        weathers.add(mi.next().init());
       }
     }
 
@@ -43,20 +43,15 @@ final class Helpers {
 
   public static List<FootballGame> createFootballGamesFromCsv(
   final String path) throws IOException {
-    CsvMapper csvMapper = new CsvMapper();
-    csvMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-    CsvSchema schema = CsvSchema.emptySchema().withHeader();
-
-    ObjectReader oReader = csvMapper.reader(FootballGame.class).with(schema);
+    ObjectReader oReader = csvMapper.readerFor(FootballGame.class).with(
+      CsvSchema.emptySchema().withHeader());
     List<FootballGame> footballGames = new ArrayList<>();
 
     try (Reader reader = new FileReader(path)) {
       MappingIterator<FootballGame> mi = oReader.readValues(reader);
         while (mi.hasNext()) {
-          FootballGame current = mi.next();
-          current.init();
-          footballGames.add(current);
-      }
+          footballGames.add(mi.next().init());
+        }
     }
 
     return footballGames;

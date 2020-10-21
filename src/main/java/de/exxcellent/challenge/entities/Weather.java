@@ -55,9 +55,10 @@ public class Weather {
     this.init();
   }
 
-  /** Computes extra attributes. */
-  public void init() {
+  /** @return Returns itself after computing attributes. */
+  public Weather init() {
     tempSpread = mxt - mnt;
+    return this;
   }
 
   /**

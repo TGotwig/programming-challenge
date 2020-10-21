@@ -43,9 +43,10 @@ public class FootballGame {
     init();
   }
 
-  /** Computes extra attributes. */
-  public void init() {
+  /** @return Returns itself after computing attributes. */
+  public FootballGame init() {
     this.goalsDistance = Math.abs(goals - goalsAllowed);
+    return this;
   }
 
   /**
