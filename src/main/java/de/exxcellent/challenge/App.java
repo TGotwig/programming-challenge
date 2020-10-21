@@ -19,12 +19,12 @@ import com.beust.jcommander.Parameter;
 public final class App {
 
   /** Path to the weather input-file. */
-  @Parameter(names = "--weather",
+  @Parameter(names = "-weather",
     description = "Path to the weather input-file.")
   private String inputWeather;
 
   /** Path to the football input-file. */
-  @Parameter(names = "--football",
+  @Parameter(names = "-football",
     description = "Path to the football input-file.")
   private String inputFootball;
 

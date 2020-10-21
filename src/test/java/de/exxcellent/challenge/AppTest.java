@@ -31,7 +31,7 @@ class AppTest {
 
   @Test
   void testSpreadFromWeather() {
-    App.main("--weather",
+    App.main("-weather",
       "src/main/resources/de/exxcellent/challenge/weather.csv");
 
     List<Weather> data = Arrays.asList(
@@ -54,7 +54,7 @@ class AppTest {
   /** Runs football. */
   @Test
   void runFootball() {
-    App.main("--football",
+    App.main("-football",
       "src/main/resources/de/exxcellent/challenge/football.csv");
 
     List<FootballGame> data = Arrays.asList(
