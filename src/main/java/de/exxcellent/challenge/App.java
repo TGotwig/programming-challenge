@@ -6,7 +6,6 @@ import java.util.List;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 
-import de.exxcellent.challenge.Enums.InputType;
 import de.exxcellent.challenge.entities.FootballGame;
 import de.exxcellent.challenge.entities.Weather;
 
@@ -44,12 +43,10 @@ public final class App {
   public static void main(final String... args) throws IOException {
     App app = new App();
     JCommander.newBuilder()
-    .addObject(app)
-    .build()
-    .parse(args);
+      .addObject(app)
+      .build()
+      .parse(args);
     app.run();
-
-    // System.out.println(1);
   }
 
   /**
@@ -69,11 +66,11 @@ public final class App {
     }
 
     if (inputFootball != null) {
-      List<FootballGame> football = Helpers.<FootballGame>createModelFromCSV(
-        inputFootball, InputType.football);
+      List<FootballGame> footballGames = Helpers
+        .createFootballGamesFromCsv(inputFootball);
 
       String teamWithSmallestGoalSpread = FootballGame
-        .getFootballGameWithSmallestGoalDistance(football);
+        .getFootballGameWithSmallestGoalDistance(footballGames);
 
       System.out.printf("Team with smallest goal spread       : %s%n",
           teamWithSmallestGoalSpread);

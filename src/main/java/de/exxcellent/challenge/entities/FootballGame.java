@@ -3,16 +3,31 @@ package de.exxcellent.challenge.entities;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class FootballGame {
 
-  /** The day. */
-  private String day;
+  /** Name of the team. */
+  private String team;
+  /** ... */
+  private int games;
+  /** ... */
+  private int wins;
+  /** ... */
+  private int losses;
+  /** ... */
+  private int draws;
   /** The goals. */
   private int goals;
   /** The allowed goals. */
-  private int goalsAllowed;
+  @JsonProperty("Goals Allowed") private int goalsAllowed;
   /** The goal-distance. */
   private Integer goalsDistance;
+  /** ... */
+  private int points;
+
+  /** Default constructor for jackson-dataformat-csv. */
+  public FootballGame() { }
 
   /**
    * @param dayArg - Day as a number.
@@ -21,10 +36,15 @@ public class FootballGame {
    */
   public FootballGame(final String dayArg,
   final int goalsArg, final int goalsAllowedArg) {
-    this.day = dayArg;
+    this.team = dayArg;
     this.goals = goalsArg;
     this.goalsAllowed = goalsAllowedArg;
 
+    init();
+  }
+
+  /** Computes extra attributes. */
+  public void init() {
     this.goalsDistance = Math.abs(goals - goalsAllowed);
   }
 
@@ -47,24 +67,64 @@ public class FootballGame {
   public static String getFootballGameWithSmallestGoalDistance(
     final List<FootballGame> footballGames) {
     return FootballGame.getFootballGameByGoalDistance(footballGames)
-      .get(0).getDay();
+      .get(0).getTeam();
   }
 
   @Override
   public final String toString() {
     return String.format(
       "{ day='%s', goals='%s', goalsAllowed='%s', goalsDistance='%s' }",
-      getDay(), getGoals(), getGoalsAllowed(), getGoalsDistance());
+      team, goals, goalsAllowed, goalsDistance);
   }
 
-  /** @return Day as a number. */
-  public String getDay() {
-    return this.day;
+  /** @return ... */
+  public String getTeam() {
+    return this.team;
   }
 
-  /** @param dayArg - Day as a number. */
-  public void setDay(final String dayArg) {
-    this.day = dayArg;
+  /** @param teamArg - ... */
+  public void setTeam(final String teamArg) {
+    this.team = teamArg;
+  }
+
+  /** @return ... */
+  public int getGames() {
+    return this.games;
+  }
+
+  /** @param gamesArg - ... */
+  public void setGames(final int gamesArg) {
+    this.games = gamesArg;
+  }
+
+  /** @return ... */
+  public int getWins() {
+    return this.wins;
+  }
+
+  /** @param winsArg - ... */
+  public void setWins(final int winsArg) {
+    this.wins = winsArg;
+  }
+
+  /** @return ... */
+  public int getLosses() {
+    return this.losses;
+  }
+
+  /** @param lossesArg - ... */
+  public void setLosses(final int lossesArg) {
+    this.losses = lossesArg;
+  }
+
+  /** @return ... */
+  public int getDraws() {
+    return this.draws;
+  }
+
+  /** @param drawsArg - ... */
+  public void setDraws(final int drawsArg) {
+    this.draws = drawsArg;
   }
 
   /** @return Amount of goals. */
@@ -85,6 +145,16 @@ public class FootballGame {
   /** @param goalsAllowedArg - Amount of allowed goals. */
   public void setMinTemp(final int goalsAllowedArg) {
     this.goalsAllowed = goalsAllowedArg;
+  }
+
+  /** @return ... */
+  public int getPoints() {
+    return this.points;
+  }
+
+  /** @param pointsArg - ... */
+  public void setPoints(final int pointsArg) {
+    this.points = pointsArg;
   }
 
   /** @return Difference between maxTemp and minTemp. */
