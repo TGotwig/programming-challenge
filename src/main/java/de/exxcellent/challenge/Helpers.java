@@ -1,7 +1,9 @@
 package de.exxcellent.challenge;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,21 +11,28 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+
 import de.exxcellent.challenge.Enums.InputType;
 import de.exxcellent.challenge.entities.FootballGame;
 import de.exxcellent.challenge.entities.Weather;
 
 final class Helpers {
 
-  private Helpers() { }
+  private Helpers() {
+  }
 
-  public static <E> List<E> createModelFromCSV(
-    final String fileName, final InputType inputType) {
+  public static <E> List<E> createModelFromCSV(final String fileName,
+  final InputType inputType) {
     List<E> entities = new ArrayList<>();
     Path pathToFile = Paths.get(fileName);
 
     try (BufferedReader br = Files.newBufferedReader(pathToFile,
-            StandardCharsets.US_ASCII)) {
+    StandardCharsets.US_ASCII)) {
 
       String line = br.readLine();
       line = br.readLine();
@@ -33,9 +42,11 @@ final class Helpers {
         E entity = null;
 
         switch (inputType) {
-          case weather: entity = (E) createWeather(attributes); break;
-          case football: entity = (E) createFootballGame(attributes); break;
-          default: entity = null;
+          case football:
+            entity = (E) createFootballGame(attributes);
+            break;
+          default:
+            entity = null;
         }
 
         entities.add(entity);
@@ -44,20 +55,31 @@ final class Helpers {
       }
 
     } catch (IOException ioe) {
-        ioe.printStackTrace();
+      ioe.printStackTrace();
     }
 
     return entities;
   }
 
+  public static List<Weather> createWeathersFromCsv(final String path)
+  throws IOException {
+    CsvMapper csvMapper = new CsvMapper();
+    csvMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+    CsvSchema schema = CsvSchema.emptySchema().withHeader();
 
+    ObjectReader oReader = csvMapper.reader(Weather.class).with(schema);
+    List<Weather> weathers = new ArrayList<>();
 
-  private static Weather createWeather(final String[] metadata) {
-    String day = metadata[0];
-    int maxTemp = Integer.parseInt(metadata[1]);
-    int minTemp = Integer.parseInt(metadata[2]);
+    try (Reader reader = new FileReader(path)) {
+      MappingIterator<Weather> mi = oReader.readValues(reader);
+        while (mi.hasNext()) {
+          Weather current = mi.next();
+          current.init();
+          weathers.add(current);
+      }
+    }
 
-    return new Weather(day, maxTemp, minTemp);
+    return weathers;
   }
 
   private static FootballGame createFootballGame(final String[] metadata) {

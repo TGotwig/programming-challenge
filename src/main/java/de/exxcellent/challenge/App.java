@@ -1,13 +1,14 @@
 package de.exxcellent.challenge;
 
+import java.io.IOException;
 import java.util.List;
+
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
 
 import de.exxcellent.challenge.Enums.InputType;
 import de.exxcellent.challenge.entities.FootballGame;
 import de.exxcellent.challenge.entities.Weather;
-
-import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
 
 /**
  * The entry class for your solution. This class is only aimed as starting point
@@ -29,31 +30,38 @@ public final class App {
   private String inputFootball;
 
   /**
-  * Instantiates a new App. Private to prevent instantiation
-  */
-  private App() { }
+   * Instantiates a new App. Private to prevent instantiation
+   */
+  private App() {
+  }
 
   /**
    * This is the main entry method of your program.
    *
    * @param args - The CLI arguments passed.
+   * @throws IOException
    */
-  public static void main(final String... args) {
+  public static void main(final String... args) throws IOException {
     App app = new App();
     JCommander.newBuilder()
-      .addObject(app)
-      .build()
-      .parse(args);
+    .addObject(app)
+    .build()
+    .parse(args);
     app.run();
+
+    // System.out.println(1);
   }
 
-  /** Runs after arguments were passed from JCommander. */
-  public void run() {
+  /**
+   * Runs after arguments were passed from JCommander.
+   *
+   * @throws IOException
+   */
+  public void run() throws IOException {
     if (inputWeather != null) {
-      List<Weather> weathers = Helpers.<Weather>createModelFromCSV(
-        inputWeather, InputType.weather);
+      List<Weather> weathers = Helpers.createWeathersFromCsv(inputWeather);
 
-      String dayWithSmallestTempSpread = Weather
+      int dayWithSmallestTempSpread = Weather
         .getDayWithSmallestSpread(weathers);
 
       System.out.printf("Day with smallest temperature spread : %s%n",

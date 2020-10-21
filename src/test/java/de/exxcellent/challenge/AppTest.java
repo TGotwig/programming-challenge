@@ -2,6 +2,7 @@ package de.exxcellent.challenge;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,30 +27,34 @@ class AppTest {
   }
 
   @Test
-  void testSpreadFromWeather() {
+  void testSpreadFromWeather() throws IOException {
     App.main("-weather",
       "src/main/resources/de/exxcellent/challenge/weather.csv");
 
     List<Weather> data = Arrays.asList(
-      new Weather("A", 2, 1),
-      new Weather("B", 1, 1),
-      new Weather("C", MAX, 1)
+      new Weather(1, 2, 1),
+      new Weather(2, 1, 1),
+      new Weather(MAX, MAX, 1)
     );
 
     List<Weather> tempSpreads = Weather.getWeathersByTempSpread(data);
     assertEquals(
-      "[{ day='B', maxTemp='1', minTemp='1', tempSpread='0' }, "
-      + "{ day='A', maxTemp='2', minTemp='1', tempSpread='1' }, "
-      + "{ day='C', maxTemp='10', minTemp='1', tempSpread='9' }]",
+      "[{ day='2', maxTemp='1', minTemp='1', tempSpread='0' }, "
+      + "{ day='1', maxTemp='2', minTemp='1', tempSpread='1' }, "
+      + "{ day='10', maxTemp='10', minTemp='1', tempSpread='9' }]",
       tempSpreads.toString());
 
-    String day = Weather.getDayWithSmallestSpread(data);
-    assertEquals("B", day);
+    int day = Weather.getDayWithSmallestSpread(data);
+    assertEquals(2, day);
   }
 
-  /** Runs football. */
+  /**
+   * Runs football.
+   *
+   * @throws IOException
+   */
   @Test
-  void runFootball() {
+  void runFootball() throws IOException {
     App.main("-football",
       "src/main/resources/de/exxcellent/challenge/football.csv");
 

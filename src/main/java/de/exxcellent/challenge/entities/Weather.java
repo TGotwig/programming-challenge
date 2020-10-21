@@ -3,29 +3,61 @@ package de.exxcellent.challenge.entities;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Weather {
 
   /** The day. */
-  private String day;
+  private int day;
   /** The maximum temperature. */
-  private int maxTemp;
+  private int mxt;
   /** The minimum temperature. */
-  private int minTemp;
+  private int mnt;
+  /** ... */
+  private int avt;
+  /** ... */
+  private float avdp;
+  /** ... */
+  @JsonProperty("1HrP TPcpn") private int hrpTpcpn;
+  /** ... */
+  private int pdir;
+  /** ... */
+  private float avsp;
+  /** ... */
+  private int dir;
+  /** ... */
+  private int mxs;
+  /** ... */
+  private float skyc;
+  /** ... */
+  private int mxr;
+  /** ... */
+  private int mn;
+  /** ... */
+  @JsonProperty("R AvSLP") private float rAvslp;
   /** The temperature-spread. */
   private Integer tempSpread;
 
+  /** Default constructor for jackson-dataformat-csv. */
+  public Weather() { }
+
   /**
    * @param dayArg - Day as a number.
-   * @param maxTempArg - Maximum temperature
-   * @param minTempArg - Minimum temperature
+   * @param maxTempArg - Maximum temperature.
+   * @param minTempArg - Minimum temperature.
    */
-  public Weather(final String dayArg,
+  public Weather(final int dayArg,
   final int maxTempArg, final int minTempArg) {
     this.day = dayArg;
-    this.maxTemp = maxTempArg;
-    this.minTemp = minTempArg;
+    this.mxt = maxTempArg;
+    this.mnt = minTempArg;
 
-    this.tempSpread = maxTempArg - minTempArg;
+    this.init();
+  }
+
+  /** Computes extra attributes. */
+  public void init() {
+    tempSpread = mxt - mnt;
   }
 
   /**
@@ -43,7 +75,7 @@ public class Weather {
    * @param weathers - List with multiple Weather objects.
    * @return Day with the smallest temperature-spread.
    */
-  public static String getDayWithSmallestSpread(final List<Weather> weathers) {
+  public static int getDayWithSmallestSpread(final List<Weather> weathers) {
     return Weather.getWeathersByTempSpread(weathers).get(0).getDay();
   }
 
@@ -51,37 +83,151 @@ public class Weather {
   public final String toString() {
     return String.format(
       "{ day='%s', maxTemp='%s', minTemp='%s', tempSpread='%s' }",
-      getDay(), getMaxTemp(), getMinTemp(), getTempSpread());
+      day, mxt, mnt, tempSpread);
   }
 
+  // ------------------------------
+  // Initial getters & setters
+  // ------------------------------
+
   /** @return Day as a number. */
-  public String getDay() {
+  public int getDay() {
     return this.day;
   }
 
   /** @param dayArg - Day as a number. */
-  public void setDay(final String dayArg) {
+  public void setDay(final int dayArg) {
     this.day = dayArg;
   }
 
   /** @return Maximum temperature. */
-  public int getMaxTemp() {
-    return this.maxTemp;
+  public int getMxt() {
+    return this.mxt;
   }
 
   /** @param maxTempArg - Maximum temperature. */
-  public void setMaxTemp(final int maxTempArg) {
-    this.maxTemp = maxTempArg;
+  public void setMxt(final int maxTempArg) {
+    this.mxt = maxTempArg;
   }
 
   /** @return Minimum temperature. */
-  public int getMinTemp() {
-    return this.minTemp;
+  public int getMnt() {
+    return this.mnt;
   }
 
   /** @param minTempArg - Minimum temperature. */
-  public void setMinTemp(final int minTempArg) {
-    this.minTemp = minTempArg;
+  public void setMnt(final int minTempArg) {
+    this.mnt = minTempArg;
+  }
+
+  /** @return ... */
+  public int getAvt() {
+    return this.avt;
+  }
+
+  /** @param avtArg - ... */
+  public void setAvt(final int avtArg) {
+    this.avt = avtArg;
+  }
+
+  /** @return ... */
+  public float getAvdp() {
+    return this.avdp;
+  }
+
+  /** @param avdpArg - ... */
+  public void setAvdp(final float avdpArg) {
+    this.avdp = avdpArg;
+  }
+
+  /** @return ... */
+  public int getHrpTpcpn() {
+    return this.hrpTpcpn;
+  }
+
+  /** @param hrpTpcpnArg - ... */
+  public void setHrpTpcpn(final int hrpTpcpnArg) {
+    this.hrpTpcpn = hrpTpcpnArg;
+  }
+
+  /** @return ... */
+  public int getPdir() {
+    return this.pdir;
+  }
+
+  /** @param pdirArg - ... */
+  public void setPdir(final int pdirArg) {
+    this.pdir = pdirArg;
+  }
+
+  /** @return ... */
+  public float getAvsp() {
+    return this.avsp;
+  }
+
+  /** @param avspArg - ... */
+  public void setAvsp(final Float avspArg) {
+    this.avsp = avspArg;
+  }
+
+  /** @return ... */
+  public int getDir() {
+    return this.dir;
+  }
+
+  /** @param dirArg - ... */
+  public void setDir(final int dirArg) {
+    this.dir = dirArg;
+  }
+
+  /** @return ... */
+  public int getMxs() {
+    return this.mxs;
+  }
+
+  /** @param mxsArg - ... */
+  public void setMxs(final int mxsArg) {
+    this.mxs = mxsArg;
+  }
+
+  /** @return ... */
+  public float getSkyc() {
+    return this.skyc;
+  }
+
+  /** @param skycArg - ... */
+  public void setSkyc(final float skycArg) {
+    this.skyc = skycArg;
+  }
+
+  /** @return ... */
+  public int getMxr() {
+    return this.mxr;
+  }
+
+  /** @param mxrArg - ... */
+  public void setMxr(final int mxrArg) {
+    this.mxr = mxrArg;
+  }
+
+  /** @return ... */
+  public int getMn() {
+    return this.mn;
+  }
+
+  /** @param mnArg - ... */
+  public void setMn(final int mnArg) {
+    this.mn = mnArg;
+  }
+
+  /** @return ... */
+  public float getRAvslp() {
+    return this.rAvslp;
+  }
+
+  /** @param rAvslpArg - ... */
+  public void setRAvslp(final float rAvslpArg) {
+    this.rAvslp = rAvslpArg;
   }
 
   /** @return Difference between maxTemp and minTemp. */
