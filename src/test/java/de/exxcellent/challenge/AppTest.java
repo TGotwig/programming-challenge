@@ -18,12 +18,8 @@ import de.exxcellent.challenge.entities.Weather;
  */
 class AppTest {
 
-  /** A FIVE. */
-  public static final int FIVE = 5;
-  /** A THREE. */
-  public static final int THREE = 3;
-  /** A NINE. */
-  public static final int NINE = 9;
+  /** The maximum number to use. */
+  public static final int MAX = 10;
 
   @BeforeEach
   void setUp() {
@@ -35,16 +31,16 @@ class AppTest {
       "src/main/resources/de/exxcellent/challenge/weather.csv");
 
     List<Weather> data = Arrays.asList(
-      new Weather("A", FIVE, 1),
-      new Weather("B", THREE, 1),
-      new Weather("C", NINE, 1)
+      new Weather("A", 2, 1),
+      new Weather("B", 1, 1),
+      new Weather("C", MAX, 1)
     );
 
     List<Weather> tempSpreads = Weather.getWeathersByTempSpread(data);
     assertEquals(
-      "[{ day='B', maxTemp='3', minTemp='1', tempSpread='2' }, "
-      + "{ day='A', maxTemp='5', minTemp='1', tempSpread='4' }, "
-      + "{ day='C', maxTemp='9', minTemp='1', tempSpread='8' }]",
+      "[{ day='B', maxTemp='1', minTemp='1', tempSpread='0' }, "
+      + "{ day='A', maxTemp='2', minTemp='1', tempSpread='1' }, "
+      + "{ day='C', maxTemp='10', minTemp='1', tempSpread='9' }]",
       tempSpreads.toString());
 
     String day = Weather.getDayWithSmallestSpread(data);
@@ -58,17 +54,17 @@ class AppTest {
       "src/main/resources/de/exxcellent/challenge/football.csv");
 
     List<FootballGame> data = Arrays.asList(
-      new FootballGame("A", FIVE, 1),
-      new FootballGame("B", THREE, 1),
-      new FootballGame("C", 1, NINE)
+      new FootballGame("A", 2, 1),
+      new FootballGame("B", 1, 1),
+      new FootballGame("C", 1, MAX)
     );
 
     List<FootballGame> tempSpreads = FootballGame
       .getFootballGameByGoalDistance(data);
     assertEquals(
-      "[{ day='B', goals='3', goalsAllowed='1', goalsDistance='2' }, "
-      + "{ day='A', goals='5', goalsAllowed='1', goalsDistance='4' }, "
-      + "{ day='C', goals='1', goalsAllowed='9', goalsDistance='8' }]",
+      "[{ day='B', goals='1', goalsAllowed='1', goalsDistance='0' }, "
+      + "{ day='A', goals='2', goalsAllowed='1', goalsDistance='1' }, "
+      + "{ day='C', goals='1', goalsAllowed='10', goalsDistance='9' }]",
       tempSpreads.toString());
 
     String day = FootballGame.getFootballGameWithSmallestGoalDistance(data);
