@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.exxcellent.challenge.entities.FootballGame;
@@ -22,10 +21,6 @@ class AppTest {
   /** The maximum number to use. */
   public static final int MAX = 10;
 
-  @BeforeEach
-  void setUp() {
-  }
-
   @Test
   void testSpreadFromWeather() throws IOException {
     App.main("-weather",
@@ -38,11 +33,9 @@ class AppTest {
     );
 
     List<Weather> tempSpreads = Weather.getWeathersByTempSpread(data);
-    assertEquals(
-      "[{ day='2', maxTemp='1', minTemp='1', tempSpread='0' }, "
-      + "{ day='1', maxTemp='2', minTemp='1', tempSpread='1' }, "
-      + "{ day='10', maxTemp='10', minTemp='1', tempSpread='9' }]",
-      tempSpreads.toString());
+    assertEquals(2, tempSpreads.get(0).getDay());
+    assertEquals(1, tempSpreads.get(1).getDay());
+    assertEquals(MAX, tempSpreads.get(2).getDay());
 
     int day = Weather.getDayWithSmallestSpread(data);
     assertEquals(2, day);
@@ -64,13 +57,11 @@ class AppTest {
       new FootballGame("C", 1, MAX)
     );
 
-    List<FootballGame> tempSpreads = FootballGame
+    List<FootballGame> footballGames = FootballGame
       .getFootballGameByGoalDistance(data);
-    assertEquals(
-      "[{ day='B', goals='1', goalsAllowed='1', goalsDistance='0' }, "
-      + "{ day='A', goals='2', goalsAllowed='1', goalsDistance='1' }, "
-      + "{ day='C', goals='1', goalsAllowed='10', goalsDistance='9' }]",
-      tempSpreads.toString());
+    assertEquals("B", footballGames.get(0).getTeam());
+    assertEquals("A", footballGames.get(1).getTeam());
+    assertEquals("C", footballGames.get(2).getTeam());
 
     String day = FootballGame.getFootballGameWithSmallestGoalDistance(data);
       assertEquals("B", day);
