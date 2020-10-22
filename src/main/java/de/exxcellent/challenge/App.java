@@ -74,6 +74,8 @@ public final class App {
 
       System.out.printf("Team with smallest goal spread       : %s%n",
           teamWithSmallestGoalSpread);
+
+      System.out.println(footballGames);
     }
   }
 

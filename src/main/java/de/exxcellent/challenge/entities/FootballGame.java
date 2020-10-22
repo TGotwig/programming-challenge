@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class FootballGame {
 
   /** Name of the team. */
@@ -73,9 +76,8 @@ public class FootballGame {
 
   @Override
   public final String toString() {
-    return String.format(
-      "{ day='%s', goals='%s', goalsAllowed='%s', goalsDistance='%s' }",
-      team, goals, goalsAllowed, goalsDistance);
+    return ToStringBuilder.reflectionToString(this,
+      ToStringStyle.MULTI_LINE_STYLE);
   }
 
   /** @return ... */

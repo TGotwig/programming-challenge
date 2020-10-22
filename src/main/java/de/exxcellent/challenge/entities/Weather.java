@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class Weather {
 
   /** The day. */
@@ -82,9 +85,8 @@ public class Weather {
 
   @Override
   public final String toString() {
-    return String.format(
-      "{ day='%s', maxTemp='%s', minTemp='%s', tempSpread='%s' }",
-      day, mxt, mnt, tempSpread);
+    return ToStringBuilder.reflectionToString(this,
+      ToStringStyle.MULTI_LINE_STYLE);
   }
 
   // ------------------------------
